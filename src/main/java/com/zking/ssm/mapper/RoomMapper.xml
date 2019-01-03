@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.ssm.mapper.RoomMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.ssm.model.Room" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="typeId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="roomName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="roomNum" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="price" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="area" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="imageId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ztai" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="commentsId" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="row1" type="com.zking.ssm.model.Room" >
+      <id column="id" property="id" javaType="java.lang.String" />
+      <result column="typeId" property="typeid" javaType="java.lang.String" />
+      <result column="roomName" property="roomname" javaType="java.lang.String" />
+      <result column="roomNum" property="roomnum" javaType="java.lang.String" />
+      <result column="price" property="price" javaType="java.math.BigDecimal" />
+      <result column="area" property="area" javaType="java.lang.String" />
+      <result column="count" property="count" javaType="java.lang.Integer" />
+      <result column="remark" property="remark" javaType="java.lang.String" />
+      <result column="imageId" property="imageid" javaType="java.lang.String" />
+      <result column="ztai" property="ztai" javaType="java.lang.Integer" />
+      <result column="commentsId" property="commentsId" javaType="java.lang.String" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, typeId, roomName, price, area, count, remark, imageId, ztai, commentsId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from room
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="list" resultType="com.zking.ssm.vo.RoomInfoVo">
+    select a.id, a.roomName, c.roomType,a.price,b.imageName,a.remark,a.area,a.count,a.commentsId
+    from room as a inner join roomimage as b on a.imageId=b.id
+    inner join roomtype as c on c.id=a.typeId
+    where a.id = #{id,jdbcType=VARCHAR}
+
+  </select>
+  <select id="commList" resultType="com.zking.ssm.vo.PCommentsVo">
+      select a.id,b.messge,b.customerName
+      from room as a inner join comments as b on a.commentsId=b.productId
+      where a.commentsId=#{commentsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from room
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zking.ssm.model.Room" >
+    insert into room (id, typeId, roomName, 
+      price, area, count, 
+      remark, imageId, ztai, 
+      commentsId)
+    values (#{id,jdbcType=VARCHAR}, #{typeid,jdbcType=VARCHAR}, #{roomname,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DECIMAL}, #{area,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{imageid,jdbcType=VARCHAR}, #{ztai,jdbcType=INTEGER}, 
+      #{commentsId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.ssm.model.Room" >
+    insert into room
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="typeid != null" >
+        typeId,
+      </if>
+      <if test="roomname != null" >
+        roomName,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="imageid != null" >
+        imageId,
+      </if>
+      <if test="ztai != null" >
+        ztai,
+      </if>
+      <if test="commentsId != null" >
+        commentsId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null" >
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="roomname != null" >
+        #{roomname,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="imageid != null" >
+        #{imageid,jdbcType=VARCHAR},
+      </if>
+      <if test="ztai != null" >
+        #{ztai,jdbcType=INTEGER},
+      </if>
+      <if test="commentsId != null" >
+        #{commentsId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.ssm.model.Room" >
+    update room
+    <set >
+      <if test="typeid != null" >
+        typeId = #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="roomname != null" >
+        roomName = #{roomname,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="imageid != null" >
+        imageId = #{imageid,jdbcType=VARCHAR},
+      </if>
+      <if test="ztai != null" >
+        ztai = #{ztai,jdbcType=INTEGER},
+      </if>
+      <if test="commentsId != null" >
+        commentsId = #{commentsId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.ssm.model.Room" >
+    update room
+    set typeId = #{typeid,jdbcType=VARCHAR},
+      roomName = #{roomname,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      area = #{area,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      imageId = #{imageid,jdbcType=VARCHAR},
+      ztai = #{ztai,jdbcType=INTEGER},
+      commentsId = #{commentsId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

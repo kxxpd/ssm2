@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.ssm.mapper.CashbackMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.ssm.model.Cashback" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="discount" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="foodId" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, type, discount, foodId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from cashback
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from cashback
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zking.ssm.model.Cashback" >
+    insert into cashback (id, type, discount, 
+      foodId)
+    values (#{id,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{discount,jdbcType=REAL}, 
+      #{foodid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.ssm.model.Cashback" >
+    insert into cashback
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="foodid != null" >
+        foodId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=REAL},
+      </if>
+      <if test="foodid != null" >
+        #{foodid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.ssm.model.Cashback" >
+    update cashback
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=REAL},
+      </if>
+      <if test="foodid != null" >
+        foodId = #{foodid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.ssm.model.Cashback" >
+    update cashback
+    set type = #{type,jdbcType=VARCHAR},
+      discount = #{discount,jdbcType=REAL},
+      foodId = #{foodid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

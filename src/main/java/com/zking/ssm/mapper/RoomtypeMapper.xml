@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.ssm.mapper.RoomtypeMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.ssm.model.Roomtype" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="roomType" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="roomcount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, roomType, roomcount
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from roomtype
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from roomtype
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zking.ssm.model.Roomtype" >
+    insert into roomtype (id, roomType, roomcount
+      )
+    values (#{id,jdbcType=VARCHAR}, #{roomtype,jdbcType=VARCHAR}, #{roomcount,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.ssm.model.Roomtype" >
+    insert into roomtype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="roomtype != null" >
+        roomType,
+      </if>
+      <if test="roomcount != null" >
+        roomcount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="roomtype != null" >
+        #{roomtype,jdbcType=VARCHAR},
+      </if>
+      <if test="roomcount != null" >
+        #{roomcount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.ssm.model.Roomtype" >
+    update roomtype
+    <set >
+      <if test="roomtype != null" >
+        roomType = #{roomtype,jdbcType=VARCHAR},
+      </if>
+      <if test="roomcount != null" >
+        roomcount = #{roomcount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.ssm.model.Roomtype" >
+    update roomtype
+    set roomType = #{roomtype,jdbcType=VARCHAR},
+      roomcount = #{roomcount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

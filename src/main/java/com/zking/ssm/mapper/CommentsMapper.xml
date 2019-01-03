@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.ssm.mapper.CommentsMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.ssm.model.Comments" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="messge" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="customerName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="productId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ztai" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, messge, customerName, productId, ztai
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from comments
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from comments
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zking.ssm.model.Comments" >
+    insert into comments (id, messge, customerName, 
+      productId, ztai)
+    values (#{id,jdbcType=VARCHAR}, #{messge,jdbcType=VARCHAR}, #{customername,jdbcType=VARCHAR}, 
+      #{productid,jdbcType=VARCHAR}, #{ztai,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.ssm.model.Comments" >
+    insert into comments
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="messge != null" >
+        messge,
+      </if>
+      <if test="customername != null" >
+        customerName,
+      </if>
+      <if test="productid != null" >
+        productId,
+      </if>
+      <if test="ztai != null" >
+        ztai,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="messge != null" >
+        #{messge,jdbcType=VARCHAR},
+      </if>
+      <if test="customername != null" >
+        #{customername,jdbcType=VARCHAR},
+      </if>
+      <if test="productid != null" >
+        #{productid,jdbcType=VARCHAR},
+      </if>
+      <if test="ztai != null" >
+        #{ztai,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.ssm.model.Comments" >
+    update comments
+    <set >
+      <if test="messge != null" >
+        messge = #{messge,jdbcType=VARCHAR},
+      </if>
+      <if test="customername != null" >
+        customerName = #{customername,jdbcType=VARCHAR},
+      </if>
+      <if test="productid != null" >
+        productId = #{productid,jdbcType=VARCHAR},
+      </if>
+      <if test="ztai != null" >
+        ztai = #{ztai,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.ssm.model.Comments" >
+    update comments
+    set messge = #{messge,jdbcType=VARCHAR},
+      customerName = #{customername,jdbcType=VARCHAR},
+      productId = #{productid,jdbcType=VARCHAR},
+      ztai = #{ztai,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

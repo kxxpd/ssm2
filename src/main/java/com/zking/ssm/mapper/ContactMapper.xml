@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.ssm.mapper.ContactMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.ssm.model.Contact" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="userName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="message" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ztai" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userName, phone, message, ztai
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from contact
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from contact
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zking.ssm.model.Contact" >
+    insert into contact (id, userName, phone, 
+      message, ztai)
+    values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{message,jdbcType=VARCHAR}, #{ztai,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.ssm.model.Contact" >
+    insert into contact
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="username != null" >
+        userName,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="ztai != null" >
+        ztai,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="ztai != null" >
+        #{ztai,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.ssm.model.Contact" >
+    update contact
+    <set >
+      <if test="username != null" >
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="ztai != null" >
+        ztai = #{ztai,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.ssm.model.Contact" >
+    update contact
+    set userName = #{username,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      message = #{message,jdbcType=VARCHAR},
+      ztai = #{ztai,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

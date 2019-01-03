@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.ssm.mapper.MenuMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.ssm.model.Menu" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="foodType" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cuisine" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="orher" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, foodType, cuisine, orher
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from menu
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from menu
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zking.ssm.model.Menu" >
+    insert into menu (id, foodType, cuisine, 
+      orher)
+    values (#{id,jdbcType=VARCHAR}, #{foodtype,jdbcType=VARCHAR}, #{cuisine,jdbcType=VARCHAR}, 
+      #{orher,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.ssm.model.Menu" >
+    insert into menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="foodtype != null" >
+        foodType,
+      </if>
+      <if test="cuisine != null" >
+        cuisine,
+      </if>
+      <if test="orher != null" >
+        orher,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="foodtype != null" >
+        #{foodtype,jdbcType=VARCHAR},
+      </if>
+      <if test="cuisine != null" >
+        #{cuisine,jdbcType=VARCHAR},
+      </if>
+      <if test="orher != null" >
+        #{orher,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.ssm.model.Menu" >
+    update menu
+    <set >
+      <if test="foodtype != null" >
+        foodType = #{foodtype,jdbcType=VARCHAR},
+      </if>
+      <if test="cuisine != null" >
+        cuisine = #{cuisine,jdbcType=VARCHAR},
+      </if>
+      <if test="orher != null" >
+        orher = #{orher,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.ssm.model.Menu" >
+    update menu
+    set foodType = #{foodtype,jdbcType=VARCHAR},
+      cuisine = #{cuisine,jdbcType=VARCHAR},
+      orher = #{orher,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

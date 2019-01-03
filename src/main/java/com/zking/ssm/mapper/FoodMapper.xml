@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.ssm.mapper.FoodMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.ssm.model.Food" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="typeId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="foodName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="price" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="imageId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ztai" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="commentsId" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, typeId, foodName, price, remark, imageId, ztai, commentsId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from food
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from food
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zking.ssm.model.Food" >
+    insert into food (id, typeId, foodName, 
+      price, remark, imageId, 
+      ztai, commentsId)
+    values (#{id,jdbcType=VARCHAR}, #{typeid,jdbcType=VARCHAR}, #{foodname,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{imageid,jdbcType=INTEGER}, 
+      #{ztai,jdbcType=INTEGER}, #{commentsId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.ssm.model.Food" >
+    insert into food
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="typeid != null" >
+        typeId,
+      </if>
+      <if test="foodname != null" >
+        foodName,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="imageid != null" >
+        imageId,
+      </if>
+      <if test="ztai != null" >
+        ztai,
+      </if>
+      <if test="commentsId != null" >
+        commentsId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null" >
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="foodname != null" >
+        #{foodname,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="imageid != null" >
+        #{imageid,jdbcType=INTEGER},
+      </if>
+      <if test="ztai != null" >
+        #{ztai,jdbcType=INTEGER},
+      </if>
+      <if test="commentsId != null" >
+        #{commentsId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.ssm.model.Food" >
+    update food
+    <set >
+      <if test="typeid != null" >
+        typeId = #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="foodname != null" >
+        foodName = #{foodname,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="imageid != null" >
+        imageId = #{imageid,jdbcType=INTEGER},
+      </if>
+      <if test="ztai != null" >
+        ztai = #{ztai,jdbcType=INTEGER},
+      </if>
+      <if test="commentsId != null" >
+        commentsId = #{commentsId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.ssm.model.Food" >
+    update food
+    set typeId = #{typeid,jdbcType=VARCHAR},
+      foodName = #{foodname,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      imageId = #{imageid,jdbcType=INTEGER},
+      ztai = #{ztai,jdbcType=INTEGER},
+      commentsId = #{commentsId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
